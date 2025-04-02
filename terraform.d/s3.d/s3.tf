@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "my_app_bucket" {
     bucket = "${local.bucket_name_long}"
-    # acl    = "private"  ## DEFINED BY RUNING OF TERRAFORM
+    # acl    = "private"  ## DEFINED BY RUNNING OF TERRAFORM
 
     tags = {
         Name        = "${var.bucket_name}"
-        Environment = "Dev"
+        Environment = "${var.env}"
     }
 }
 

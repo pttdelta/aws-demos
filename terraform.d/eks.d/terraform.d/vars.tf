@@ -4,10 +4,10 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-variable "bucket_name" {
-  description = "Bucket name"
+variable "eks_name" {
+  description = "EKS name"
   type        = string
-  default     = "hyacinth"
+  default     = "deidre"
 }
 
 variable "env" {
