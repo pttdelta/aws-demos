@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "local" {
-    path = "/home/andy/TERRAFORM-STATE/aws-demos/s3-dev.tfstate"
+    path = "/home/andy/TERRAFORM-STATE/aws-demos/eks-dev.tfstate"
   }
 }
 
