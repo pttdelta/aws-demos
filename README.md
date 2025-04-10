@@ -7,3 +7,8 @@ aws demos, mainly with terraform
 * eks
 
 * lots of linting and security and general checking
+  * tflint
+  * tfsec
+  * terraform fmt -check
+  * terraform test
+  * terraform validate
