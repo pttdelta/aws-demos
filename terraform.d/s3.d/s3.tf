@@ -114,3 +114,15 @@ resource "aws_s3_bucket_public_access_block" "log_block_public_access" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "my_bucket_encryption" {
+  bucket = aws_s3_bucket.log_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.s3_key.id
+    }
+    bucket_key_enabled = true # Enable S3 Bucket Key for improved performance and cost reduction
+  }
+}
