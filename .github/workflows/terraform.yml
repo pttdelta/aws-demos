@@ -22,7 +22,7 @@ jobs:
           terraform_version: "1.11.3"  # same version as defined in the terraform.tf and this isnt nice to share a variable to both places
 
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive -var 
+        run: terraform fmt -check -recursive
 
       - name: Terraform Init
         run: terraform init -backend=false
