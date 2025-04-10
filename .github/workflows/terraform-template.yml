@@ -41,9 +41,9 @@ jobs:
       - name: Tflint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          tflint
+          tflint --config=./config.d/.tflint.hcl
 
       - name: Tfsec
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-          tfsec
+          tfsec --config=./config.d/.tfsec.hcl
