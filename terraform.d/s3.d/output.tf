@@ -11,5 +11,5 @@ output "data_caller_user" {
 }
 
 output "local_bucket_name_long" {
-  value =  "${local.bucket_name_long}"
+  value = local.bucket_name_long
 }
