@@ -32,7 +32,11 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
         {
             "Sid": "Stmt1743755887622",
             "Effect": "Deny",
-            "Principal": "*",
+            "Principal": {
+              {
+                AWS = "arn:aws:iam::650897784733:Andyf-Developer"  
+              }
+            },  
             "Action": "s3:PutObject",
             "Resource": "${aws_s3_bucket.my_bucket.arn}/*",
             "Condition": {
@@ -81,4 +85,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "my_bucket_lifecycle" {
       days = 30 # Delete objects older than 30 days
     }
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "my_block_public_access" {
+  bucket = aws_s3_bucket.my_bucket.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = true
+  restrict_public_buckets = true
 }
