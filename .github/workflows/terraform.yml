@@ -19,13 +19,13 @@ jobs:
         run: cd terraform.d/s3.d && pwd
 
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive
+        run: cd terraform.d/s3.d && terraform fmt -check -recursive
 
       - name: Terraform Init
-        run: terraform init -backend=false
+        run: cd terraform.d/s3.d && terraform init -backend=false
 
       - name: Terraform Validate
-        run: terraform validate
+        run: cd terraform.d/s3.d && terraform validate
 
       - name: Print greeting
         run: echo "Hello from GitHub Actions!"
