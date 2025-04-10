@@ -115,7 +115,7 @@ resource "aws_s3_bucket_public_access_block" "log_block_public_access" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "my_bucket_encryption" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "log_bucket_encryption" {
   bucket = aws_s3_bucket.log_bucket.id
 
   rule {
