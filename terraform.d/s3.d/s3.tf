@@ -38,7 +38,7 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
               }
             },  
             "Action": "s3:PutObject",
-            "Resource": "${aws_s3_bucket.my_bucket.arn}/*",
+            "Resource": "${aws_s3_bucket.my_bucket.arn}/Andy/*",
             "Condition": {
                 "Null": {
                     "s3:x-amz-server-side-encryption": "true"
