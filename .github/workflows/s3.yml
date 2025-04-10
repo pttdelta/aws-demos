@@ -1,0 +1,9 @@
+name: s3 terraform checks
+
+on: [push]
+
+jobs:
+  use-template:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      tf_directory: ./terraform.d/s3.d
