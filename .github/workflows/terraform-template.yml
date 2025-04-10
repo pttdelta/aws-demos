@@ -6,7 +6,7 @@ on:
       tf_directory:
         required: true
         type: string
-        default: "terraform.d/s3.d"
+        # default: "terraform.d/s3.d"
 env:
   TERRAFORM_VERSION: "1.11.3"
 
