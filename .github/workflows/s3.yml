@@ -3,7 +3,7 @@ name: s3 terraform checks
 on: [push]
 
 jobs:
-  use-template:
+  s3:
     uses: ./.github/workflows/terraform.yml
     with:
       tf_directory: ./terraform.d/s3.d
