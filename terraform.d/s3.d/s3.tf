@@ -9,6 +9,11 @@ resource "aws_s3_bucket" "my_bucket" {
   }
   force_destroy = false
 
+  logging {
+    target_bucket = aws_s3_bucket.log_bucket.bucket
+    target_prefix = "logs/"
+  }
+
   tags = {
     Name        = "${var.bucket_name}"
     Environment = "${var.env}"
@@ -89,6 +94,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "my_bucket_lifecycle" {
 
 resource "aws_s3_bucket_public_access_block" "my_block_public_access" {
   bucket = aws_s3_bucket.my_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# Log bucket (ensure it exists before configuring logging)
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "my-log-bucket"
+}
+
+resource "aws_s3_bucket_public_access_block" "log_block_public_access" {
+  bucket = aws_s3_bucket.log_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
