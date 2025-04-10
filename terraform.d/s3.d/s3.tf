@@ -9,10 +9,7 @@ resource "aws_s3_bucket" "my_bucket" {
   }
   force_destroy = false
 
-  logging {
-    target_bucket = aws_s3_bucket.log_bucket.bucket
-    target_prefix = "logs/"
-  }
+  # Logging configuration moved to a separate resource
 
   tags = {
     Name        = "${var.bucket_name}"
@@ -92,11 +89,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "my_bucket_lifecycle" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "my_block_public_access" {
-  bucket = aws_s3_bucket.my_bucket.id
+resource "aws_s3_bucket_logging" "my_bucket_logging" {
+  bucket        = aws_s3_bucket.my_bucket.id
+  target_bucket = aws_s3_bucket.log_bucket.id
+  target_prefix = "logs/"
+}
 
-  block_public_acls       = true
-  block_public_policy     = true
+resource "aws_s3_bucket_public_access_block" "my_block_public_access" {
+  bucket                  = aws_s3_bucket.my_bucket.id
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
