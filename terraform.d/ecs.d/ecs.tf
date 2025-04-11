@@ -1,12 +1,12 @@
 # Provider configuration for AWS
 provider "aws" {
-  region = "us-west-2"  # Set your preferred AWS region
+  region = "us-west-2" # Set your preferred AWS region
 }
 
 # VPC Creation
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
 }
 
@@ -39,11 +39,11 @@ resource "aws_iam_role" "ecs_instance_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
-        Effect    = "Allow"
+        Effect = "Allow"
       }
     ]
   })
@@ -63,11 +63,11 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
         }
-        Effect    = "Allow"
+        Effect = "Allow"
       }
     ]
   })
@@ -102,9 +102,9 @@ resource "aws_security_group" "ecs_security_group" {
 
 # Launch Configuration for Auto Scaling Group
 resource "aws_launch_configuration" "ecs_launch_configuration" {
-  name          = "ecs-launch-config"
-  image_id      = "ami-12345678"  # Replace with a valid ECS-optimized AMI ID for your region
-  instance_type = "t2.micro"
+  name            = "ecs-launch-config"
+  image_id        = "ami-12345678" # Replace with a valid ECS-optimized AMI ID for your region
+  instance_type   = "t2.micro"
   security_groups = [aws_security_group.ecs_security_group.id]
 
   iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.name
@@ -124,15 +124,15 @@ resource "aws_iam_instance_profile" "ecs_instance_profile" {
 
 # Auto Scaling Group
 resource "aws_autoscaling_group" "ecs_asg" {
-  desired_capacity     = 2  # Number of EC2 instances in the ASG
-  min_size             = 1
-  max_size             = 3
+  desired_capacity = 2 # Number of EC2 instances in the ASG
+  min_size         = 1
+  max_size         = 3
 }
 
 # Create VPC
 resource "aws_vpc" "ecs_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
 }
 
@@ -178,11 +178,11 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ecs-tasks.amazonaws.com"
         }
-        Effect    = "Allow"
+        Effect = "Allow"
       }
     ]
   })
@@ -207,7 +207,7 @@ resource "aws_ecs_task_definition" "my_task" {
 
   container_definitions = jsonencode([{
     name      = "my-container"
-    image     = "${aws_ecr_repository.my_repository.repository_url}:latest"  # Image from ECR
+    image     = "${aws_ecr_repository.my_repository.repository_url}:latest" # Image from ECR
     cpu       = 256
     memory    = 512
     essential = true

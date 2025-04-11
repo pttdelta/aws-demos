@@ -1,7 +1,12 @@
 name: Hello World Workflow
 
-on: [push]
-
+on:
+  workflow_call:  # Enables it to be called from another workflow
+    inputs:
+      tf_directory:
+        required: true
+        type: string
+        # default: "terraform.d/s3.d"
 env:
   TERRAFORM_VERSION: "1.11.3"
 
@@ -10,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform.d/s3.d
+        working-directory: ${{ inputs.tf_directory }}
 
     steps:
       - name: Checkout code
@@ -36,4 +41,9 @@ jobs:
       - name: Tflint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-          tflint
+          tflint --config=${{ github.workspace }}/config.d/.tflint.hcl
+
+      - name: Tfsec
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+          tfsec --config-file ${{ github.workspace }}/config.d/.tfsec.hcl

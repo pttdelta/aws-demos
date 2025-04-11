@@ -1,0 +1,16 @@
+exclude:
+  - AWS017  # S3 bucket should have access logging enabled
+  - AWS002  # S3 bucket should have encryption enabled
+
+exclude_paths:
+  - modules/third-party/
+  - examples/
+
+severity_overrides:
+  AWS012: CRITICAL  # RDS instances should not be publicly accessible
+  AWS014: LOW       # EC2 should use IMDSv2
+
+soft_fail: false  # If true, tfsec will exit with code 0 even if issues are found
+
+## config_file: .tfsec.yaml
+

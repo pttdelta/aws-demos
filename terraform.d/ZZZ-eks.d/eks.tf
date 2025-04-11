@@ -2,8 +2,8 @@
 
 # Create VPC
 resource "aws_vpc" "eks_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
 }
 
@@ -51,11 +51,11 @@ resource "aws_iam_role" "eks_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "eks.amazonaws.com"
         }
-        Effect    = "Allow"
+        Effect = "Allow"
       }
     ]
   })
@@ -75,11 +75,11 @@ resource "aws_iam_role" "eks_worker_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
-        Effect    = "Allow"
+        Effect = "Allow"
       }
     ]
   })
@@ -107,16 +107,16 @@ resource "aws_eks_cluster" "eks_cluster" {
   role_arn = aws_iam_role.eks_role.arn
 
   vpc_config {
-    subnet_ids = [aws_subnet.eks_subnet_a.id, aws_subnet.eks_subnet_b.id]
+    subnet_ids         = [aws_subnet.eks_subnet_a.id, aws_subnet.eks_subnet_b.id]
     security_group_ids = [aws_security_group.eks_security_group.id]
   }
 }
 
 # Create the EKS worker node group (EC2 Auto Scaling Group)
 resource "aws_launch_configuration" "eks_launch_config" {
-  name = "eks-launch-config"
-  image_id = "ami-0c55b159cbfafe1f0"  # Update to the correct ECS optimized AMI ID for your region
-  instance_type = "t2.micro"  # You can change the instance type as per your requirement
+  name          = "eks-launch-config"
+  image_id      = "ami-0c55b159cbfafe1f0" # Update to the correct ECS optimized AMI ID for your region
+  instance_type = "t2.micro"              # You can change the instance type as per your requirement
 
   security_groups = [aws_security_group.eks_security_group.id]
 

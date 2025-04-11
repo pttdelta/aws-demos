@@ -1,0 +1,14 @@
+name: terraform checks
+
+on: [push]
+
+jobs:
+  s3:
+    uses: ./.github/workflows/terraform-template.yml
+    with:
+      tf_directory: ./terraform.d/s3.d
+
+  eks:
+    uses: ./.github/workflows/terraform-template.yml
+    with:
+      tf_directory: ./terraform.d/eks.d
